@@ -30,11 +30,11 @@ jobs:
         run: cp README.md gigsboat-eleventy-starter/index.md
 
       - name: Set up and copy files to jekyll directory
-        run: mkdir -p jekyll/_layouts
-        run: cp gigsboat-eleventy-starter/_includes/gigsboat-layout.liquid jekyll/_layouts/default.html
         run: |
+          mkdir -p jekyll/_layouts
+          cp gigsboat-eleventy-starter/_includes/gigsboat-layout.liquid jekyll/_layouts/default.html
           (echo "---\nlayout: default\n---\n" && cat README.md) > index.md && mv index.md jekyll/index.md
-        run: cp gigsboat-eleventy-starter/styles.css jekyll/styles.css
+          cp gigsboat-eleventy-starter/styles.css jekyll/styles.css
 
       - name: Create gigs html with 11ty
         run: npx @11ty/eleventy
