@@ -29,6 +29,13 @@ jobs:
       - name: Copy file to eleventy starter directory
         run: cp README.md gigsboat-eleventy-starter/index.md
 
+      - name: Set up and copy files to jekyll directory
+        run: mkdir -p jekyll/_layouts
+        run: cp gigsboat-eleventy-starter/_includes/gigsboat-layout.liquid jekyll/_layouts/default.html
+        run: |
+          (echo "---\nlayout: default\n---\n" && cat README.md) > index.md && mv index.md jekyll/index.md
+        run: cp gigsboat-eleventy-starter/styles.css jekyll/styles.css
+
       - name: Create gigs html with 11ty
         run: npx @11ty/eleventy
 
@@ -38,6 +45,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           push-branch: 'main'
           commit-message: 'chore: updating README with new gigs and create HTML RD'
-          files: README.md docs/
+          files: README.md docs/ jekyll/
           name: Radomir Drndarski
           email: radomir.drndarski@nearform.com
